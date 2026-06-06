@@ -1,10 +1,18 @@
 ﻿import {type ChangeEvent, useState} from "react";
+import type {Object} from "./Object.ts";
 
-function DiscoveryForm() {
+function DiscoveryForm({onAddObject}:{onAddObject: (obj: Object) => void}) {
     const[inputName, setInputName] = useState('');
     const[inputType, setInputType] = useState('');
     const[inputDistance, setInputDistance] = useState('');
     const[inputLink, setInputLink] = useState('');
+
+    const [form, setForm] = useState({
+        name: "",
+        type: "",
+        distance: "",
+        link: "",
+    });
 
     function handleInputNameChange(e: ChangeEvent<HTMLInputElement>){
         setInputName(e.target.value);
@@ -21,11 +29,22 @@ function DiscoveryForm() {
     function handleSubmit(e: ChangeEvent<HTMLFormElement>){
         e.preventDefault();
 
-        setInputName('');
-        setInputType('');
-        setInputDistance('');
-        setInputLink('');
+        onAddObject({
+            name: form.name,
+            type: form.type,
+            distance: Number(form.distance),
+            link: form.link,
+        });
+
+        setForm({
+            name: "",
+            type: "",
+            distance: "",
+            link: "",
+        });
     }
+
+
     return(
         <>
         <h1>Formularz</h1>

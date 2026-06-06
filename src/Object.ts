@@ -2,5 +2,5 @@
     name: string,
     type: string,
     distance: number,
-    url: string
+    link: string
 }
