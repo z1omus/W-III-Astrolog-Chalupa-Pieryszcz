@@ -33,6 +33,7 @@ function DiscoveryForm({onAddObject}:{onAddObject: (obj: Object) => void}) {
     }
 
     const isFormValid = inputName && inputType && inputDistance && inputLink
+
     return(
         <>
         <h1>Formularz</h1>

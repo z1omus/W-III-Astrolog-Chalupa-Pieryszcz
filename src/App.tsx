@@ -12,12 +12,15 @@ function App() {
     {name: "Planeta 11",type: "planeta",distance: 9876665,link: "weergwgr.od"},
     {name: "Planetoida 1",type: "planetoida",distance: 10000023039,link: "weergwgr.od"}
   ]);
+
+  /*funkcja dodawania nowego obiektu*/
   function addObject(newObject: Object) {
     setObjects((prev) => [...prev, newObject]);
   }
 
   return (
     <>
+      {/*Dodawanie nowego obiektu do listy obiektów*/}
      <DiscoveryForm onAddObject={addObject}/>
     </>
   )
