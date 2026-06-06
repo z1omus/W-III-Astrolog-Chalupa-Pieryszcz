@@ -19,16 +19,6 @@ function App() {
   return (
     <>
      <DiscoveryForm onAddObject={addObject}/>
-      <div>
-        {objects.map((item, index) => (
-            <div key={index}>
-              <h3>{item.name}</h3>
-              <p>{item.type}</p>
-              <p>{item.distance}</p>
-              <a href={item.link}>link</a>
-            </div>
-        ))}
-      </div>
     </>
   )
 }

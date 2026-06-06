@@ -7,12 +7,6 @@ function DiscoveryForm({onAddObject}:{onAddObject: (obj: Object) => void}) {
     const[inputDistance, setInputDistance] = useState('');
     const[inputLink, setInputLink] = useState('');
 
-    const [form, setForm] = useState({
-        name: "",
-        type: "",
-        distance: "",
-        link: "",
-    });
 
     function handleInputNameChange(e: ChangeEvent<HTMLInputElement>){
         setInputName(e.target.value);
@@ -26,22 +20,20 @@ function DiscoveryForm({onAddObject}:{onAddObject: (obj: Object) => void}) {
     function handleInputLinkChange(e: ChangeEvent<HTMLInputElement>){
         setInputLink(e.target.value);
     }
-    function handleSubmit(e: ChangeEvent<HTMLFormElement>){
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
 
         onAddObject({
-            name: form.name,
-            type: form.type,
-            distance: Number(form.distance),
-            link: form.link,
+            name: inputName,
+            type: inputType,
+            distance: Number(inputDistance),
+            link: inputLink,
         });
 
-        setForm({
-            name: "",
-            type: "",
-            distance: "",
-            link: "",
-        });
+        setInputName('');
+        setInputType('');
+        setInputDistance('');
+        setInputLink('');
     }
 
 
