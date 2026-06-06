@@ -9,17 +9,13 @@ function DiscoveryForm({onAddObject}:{onAddObject: (obj: Object) => void}) {
 
 
     function handleInputNameChange(e: ChangeEvent<HTMLInputElement>){
-        setInputName(e.target.value);
-    }
+        setInputName(e.target.value);}
     function handleInputTypeChange(e: ChangeEvent<HTMLInputElement>){
-        setInputType(e.target.value);
-    }
+        setInputType(e.target.value);}
     function handleInputDistanceChange(e: ChangeEvent<HTMLInputElement>){
-        setInputDistance(e.target.value);
-    }
+        setInputDistance(e.target.value);}
     function handleInputLinkChange(e: ChangeEvent<HTMLInputElement>){
-        setInputLink(e.target.value);
-    }
+        setInputLink(e.target.value);}
     function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
 
@@ -36,15 +32,15 @@ function DiscoveryForm({onAddObject}:{onAddObject: (obj: Object) => void}) {
         setInputLink('');
     }
 
-
+    const isFormValid = inputName && inputType && inputDistance && inputLink
     return(
         <>
         <h1>Formularz</h1>
         <form onSubmit={handleSubmit}>
             <label>Podaj nazwę obiektu:<input
-            type={"text"}
-            value={inputName}
-            onChange={handleInputNameChange}
+                type={"text"}
+                value={inputName}
+                onChange={handleInputNameChange}
             /></label><br/>
             <label>Podaj typ obiektu:<input
                 type={"text"}
@@ -61,7 +57,8 @@ function DiscoveryForm({onAddObject}:{onAddObject: (obj: Object) => void}) {
             value={inputLink}
             onChange={handleInputLinkChange}
             /></label><br/>
-            <button type={"submit"}>Dodaj obiekt do bazy</button>
+            <button type={"submit"} disabled={!isFormValid}>Dodaj obiekt do bazy</button>
+            {!isFormValid && <p>Uzupełnij wszystkie pola</p>}
             </form>
         </>
     )
