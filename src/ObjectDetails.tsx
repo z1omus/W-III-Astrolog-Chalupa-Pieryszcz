@@ -6,6 +6,7 @@ export default function ObjectDetails({ object }: { object: Object | null }) {
             {object ? (
                 <>
                     <h2>{object.name}</h2>
+                    <img className={"details-img"} src={object.link}/>
                     <p style={{ fontSize: "1.1em", color: "#e0e0e0" }}>Jest {object.distance} km od Ziemi</p>
                     <p style={{ fontSize: "0.85em", color: "#888", letterSpacing: "1.5px" }}>{object.type.toUpperCase()}</p>
                 </>
