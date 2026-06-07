@@ -1,29 +1,58 @@
-import './App.css'
-import {useState} from "react";
-import DiscoveryForm from "./DiscoveryForm.tsx";
-import type {Object} from "./Object.ts";
+import React, { type ChangeEvent, useState } from "react";
+import type { Object } from "./Object.ts";
 
-function App() {
+function DiscoveryForm({ onAddObject }: { onAddObject: (obj: Object) => void }) {
+    const [inputName, setInputName] = useState('');
+    const [inputType, setInputType] = useState('');
+    const [inputDistance, setInputDistance] = useState('');
+    const [inputLink, setInputLink] = useState('');
 
-  const [objects, setObjects] = useState<Object[]>([
-    {name: "Rakieta 21",type: "rakieta",distance: 2343425,link: "weergwgr.od"},
-    {name: "Gwiazda 232",type: "gwiazda",distance: 212412399,link: "weergwgr.od"},
-    {name: "Rakieta 19084",type: "rakieta",distance: 20000032,link: "weergwgr.od"},
-    {name: "Planeta 11",type: "planeta",distance: 9876665,link: "weergwgr.od"},
-    {name: "Planetoida 1",type: "planetoida",distance: 10000023039,link: "weergwgr.od"}
-  ]);
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
 
-  /*funkcja dodawania nowego obiektu*/
-  function addObject(newObject: Object) {
-    setObjects((prev) => [...prev, newObject]);
-  }
+        onAddObject({
+            name: inputName,
+            type: inputType,
+            distance: Number(inputDistance),
+            link: inputLink || "https://cdn-icons-png.flaticon.com/512/1043/1043286.png",
+        });
 
-  return (
-    <>
-      {/*Dodawanie nowego obiektu do listy obiektów*/}
-     <DiscoveryForm onAddObject={addObject}/>
-    </>
-  )
+        setInputName('');
+        setInputType('');
+        setInputDistance('');
+        setInputLink('');
+    }
+
+    const isFormValid = inputName && inputType && inputDistance;
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <h3>Dodaj nowy obiekt</h3>
+
+            <div className="form-group">
+                <label>Nazwa:</label>
+                <input type="text" value={inputName} onChange={(e: ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)} />
+            </div>
+
+            <div className="form-group">
+                <label>Typ:</label>
+                <input type="text" value={inputType} onChange={(e: ChangeEvent<HTMLInputElement>) => setInputType(e.target.value)} />
+            </div>
+
+            <div className="form-group">
+                <label>Odległość od Ziemi:</label>
+                <input type="number" value={inputDistance} onChange={(e: ChangeEvent<HTMLInputElement>) => setInputDistance(e.target.value)} />
+            </div>
+
+            <div className="form-group">
+                <label>Link do zdjęcia:</label>
+                <input type="text" value={inputLink} onChange={(e: ChangeEvent<HTMLInputElement>) => setInputLink(e.target.value)} />
+            </div>
+
+            <button type="submit" disabled={!isFormValid}>Dodaj</button>
+            {!isFormValid && <p className="error-text">Uzupełnij wymagane pola</p>}
+        </form>
+    );
 }
 
-export default App
+export default DiscoveryForm;
