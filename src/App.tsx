@@ -1,58 +1,31 @@
-import React, { type ChangeEvent, useState } from "react";
-import type { Object } from "./Object.ts";
+import './App.css'
+import {useState} from "react";
+import DiscoveryForm from "./DiscoveryForm.tsx";
+import type {Object} from "./Object.ts";
+import CatalogList from "./CatalogList.tsx";
 
-function DiscoveryForm({ onAddObject }: { onAddObject: (obj: Object) => void }) {
-    const [inputName, setInputName] = useState('');
-    const [inputType, setInputType] = useState('');
-    const [inputDistance, setInputDistance] = useState('');
-    const [inputLink, setInputLink] = useState('');
+function App() {
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
+    const [objects, setObjects] = useState<Object[]>([
+        {name: "Rakieta 21",type: "rakieta",distance: 2343425,link: "https://www.tapeciarnia.pl/tapety/normalne/tapeta-planeta-merkury.jpg"},
+        {name: "Gwiazda 232",type: "gwiazda",distance: 212412399,link: "weergwgr.od"},
+        {name: "Rakieta 19084",type: "rakieta",distance: 20000032,link: "weergwgr.od"},
+        {name: "Planeta 11",type: "planeta",distance: 9876665,link: "weergwgr.od"},
+        {name: "Planetoida 1",type: "planetoida",distance: 10000023039,link: "weergwgr.od"}
+    ]);
 
-        onAddObject({
-            name: inputName,
-            type: inputType,
-            distance: Number(inputDistance),
-            link: inputLink || "https://cdn-icons-png.flaticon.com/512/1043/1043286.png",
-        });
-
-        setInputName('');
-        setInputType('');
-        setInputDistance('');
-        setInputLink('');
+    /*funkcja dodawania nowego obiektu*/
+    function addObject(newObject: Object) {
+        setObjects((prev) => [...prev, newObject]);
     }
 
-    const isFormValid = inputName && inputType && inputDistance;
-
     return (
-        <form onSubmit={handleSubmit}>
-            <h3>Dodaj nowy obiekt</h3>
+        <>
+            {/*Dodawanie nowego obiektu do listy obiektów*/}
+            <DiscoveryForm onAddObject={addObject}/>
 
-            <div className="form-group">
-                <label>Nazwa:</label>
-                <input type="text" value={inputName} onChange={(e: ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)} />
-            </div>
-
-            <div className="form-group">
-                <label>Typ:</label>
-                <input type="text" value={inputType} onChange={(e: ChangeEvent<HTMLInputElement>) => setInputType(e.target.value)} />
-            </div>
-
-            <div className="form-group">
-                <label>Odległość od Ziemi:</label>
-                <input type="number" value={inputDistance} onChange={(e: ChangeEvent<HTMLInputElement>) => setInputDistance(e.target.value)} />
-            </div>
-
-            <div className="form-group">
-                <label>Link do zdjęcia:</label>
-                <input type="text" value={inputLink} onChange={(e: ChangeEvent<HTMLInputElement>) => setInputLink(e.target.value)} />
-            </div>
-
-            <button type="submit" disabled={!isFormValid}>Dodaj</button>
-            {!isFormValid && <p className="error-text">Uzupełnij wymagane pola</p>}
-        </form>
-    );
+        </>
+    )
 }
 
-export default DiscoveryForm;
+export default App
