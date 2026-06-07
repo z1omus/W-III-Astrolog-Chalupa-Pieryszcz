@@ -3,6 +3,7 @@ import {useState} from "react";
 import DiscoveryForm from "./DiscoveryForm.tsx";
 import type {Object} from "./Object.ts";
 import CatalogList from "./CatalogList.tsx";
+import ObjectDetails from "./ObjectDetails.tsx";
 
 function App() {
 
@@ -19,10 +20,16 @@ function App() {
         setObjects((prev) => [...prev, newObject]);
     }
 
+    const [selectedObject, setSelectedObject] = useState<Object | null>(null);
+
     return (
         <>
+            {/*Wyświetlanie wszystkich obiektów*/}
+            <CatalogList objects={objects} onSelect={(obj) => setSelectedObject(obj)}/>
             {/*Dodawanie nowego obiektu do listy obiektów*/}
+
             <DiscoveryForm onAddObject={addObject}/>
+
 
         </>
     )
