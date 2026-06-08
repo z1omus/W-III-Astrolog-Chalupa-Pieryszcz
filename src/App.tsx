@@ -23,16 +23,21 @@ function App() {
     const [selectedObject, setSelectedObject] = useState<Object | null>(null);
 
     return (
-        <>
-            {/*Wyświetlanie wszystkich obiektów*/}
-            <CatalogList objects={objects} onSelect={(obj) => setSelectedObject(obj)}/>
-            {/*Wyświetlanie szczegółów odnośnie obiektu*/}
-            <ObjectDetails object={selectedObject}/>
-            {/*Dodawanie nowego obiektu do listy obiektów*/}
-            <DiscoveryForm onAddObject={addObject}/>
+            <div className="main-container">
+            <div className="panel">
+                <CatalogList objects={objects} onSelect={(obj) => setSelectedObject(obj)}/>
+            </div>
+            <div className="panel-right">
+                <div className="panel">
+                    <ObjectDetails object={selectedObject}/>
+                </div>
+                <div className="panel">
+                    <DiscoveryForm onAddObject={addObject}/>
+                </div>
 
+            </div>
+            </div>
 
-        </>
     )
 }
 
